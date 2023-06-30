@@ -27,12 +27,25 @@ export class StudentControllers {
             const students = await studentModel.find(query).populate({
                 path: "classroom",
                 select: "name",
-            }).sort({pointLT:1}); //sort: sắp xếp theo điểm tăng dần
+            }).sort({pointLT:1});
             res.render('list',{students:students, classrooms: classrooms})
         } catch (error){
             res.render("notfound")
         }
     }
+    static async getDetailStudentPage(req:any, res:any){
+        try{
+            const classrooms = await classroomModel.find();
+            const student = await studentModel.findOne ({_id: req.params.id}).populate({
+                path:"classroom",
+                select: "name",
+            })
+                res.render("detail",{student:student, classrooms:classrooms})
+        } catch (error){
+            res.render("notfound")
+        }
+    }
+
     static async getUpdateStudentPage(req:any, res:any){
         try{
             const classrooms = await classroomModel.find();

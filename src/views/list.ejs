@@ -15,7 +15,7 @@
 <div class="container mt-2">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Manager</a>
+            <a class="navbar-brand" href="/student/list">- CodyGym Thanh Xuân Home -</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -25,23 +25,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            student Manager
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="/student/list">List student</a></li>
-                            <li><a class="dropdown-item" href="/student/create">Add New student</a></li>
-                        </ul>
+                        Quản lý sinh viên
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div class=" card col-8 mt-4 mx-auto">
+    <div class=" card col-12 mt-4 mx-auto">
         <div class="card-header">
             <form class="w-50" id="formSubmitStudentByClass" method="post">
                 <select class="form-select me-2" id="selectByClass" name="classroom" onchange="submitForm()">
@@ -58,24 +48,31 @@
                     <tr><div class="d-flex justify-content-between"><h2>Danh sách sinh viên</h2> <a href="/student/create" class="btn btn-primary ">Thêm mới Sinh viên</a></div></tr>
                     <tr>
                         <th scope="col">STT</th>
+                        <th scope="col">Mã sinh viên</th>
                         <th scope="col">Tên</th>
                         <th scope="col">Lớp</th>
+                        <th scope="col">Điểm lý thuyết</th>
+                        <th scope="col">Điểm thực hành</th>
                         <th scope="col">Đánh giá</th>
+
                     </tr>
                     </thead>
                     <tbody>
                     <%if(students.length ==0){%>
-                        <h2> No data</h2>
+                        <h2> Chưa thêm sinh viên </h2>
                     <%}%>
                     <% students.forEach((item, index)=>{ %>
                         <tr>
                             <th scope="row"><%= index + 1 %></th>
-                            <td><%= item.name %></td>
+                            <td><%= item._id %></td>
+                            <td><a href="/student/<%= item._id %>/detail"><%= item.name %></a></td>
                             <td><%= item.classroom.name %></td>
+                            <td><%= item.pointLT %></td>
+                            <td><%= item.pointPractice %></td>
                             <td><%= item.evaluated %></td>
                             <td>
-                                <a href="/student/<%= item._id %>/update" class="btn btn-primary"> Update </a>
-                                <a href="/student/<%= item._id %>/delete" class="btn btn-danger"
+                                <a href="/student/<%= item._id %>/update" class="btn btn-outline-primary"> Update </a>
+                                <a href="/student/<%= item._id %>/delete" class="btn btn-outline-danger"
                                    onclick="return confirm('Are you sure?')"> Delete </a>
                             </td>
                         </tr>
